@@ -1,0 +1,86 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".POWActivity" >
+
+    <TextView
+        android:id="@+id/maxTimeAllowedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text=""
+        android:layout_marginTop="20dp" />
+    
+    <SeekBar
+        android:id="@+id/maxTimeAllowedSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maxTimeAllowedTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp" />
+    
+    <TextView
+        android:id="@+id/payloadLengthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maxTimeAllowedSeekBar"
+        android:layout_alignParentLeft="true"
+        android:text=""
+        android:layout_marginTop="20dp" />
+    
+    <SeekBar
+        android:id="@+id/payloadLengthSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/payloadLengthTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp" />
+    
+    <TextView
+        android:id="@+id/difficultyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/payloadLengthSeekBar"
+        android:layout_alignParentLeft="true"
+        android:text=""
+        android:layout_marginTop="20dp" />
+    
+    <SeekBar
+        android:id="@+id/difficultySeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/difficultyTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/doPOWButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/difficultySeekBar"
+        android:layout_below="@+id/difficultySeekBar"
+        android:text="@string/doPOWButton"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/doPOWButton"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="15dp" />
+
+</RelativeLayout>
