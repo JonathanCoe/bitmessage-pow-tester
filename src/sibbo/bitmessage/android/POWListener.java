@@ -1,6 +1,5 @@
 package sibbo.bitmessage.android;
 
-
 /**
  * Interface to notify objects if a pow-calculation is finished.
  * 
