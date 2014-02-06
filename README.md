@@ -3,7 +3,7 @@ BitmessagePOWTester
 
 An app for testing the performance of Android devices with Bitmessage's proof of work calculations. 
 
-This is a modified version of the "POWTester" app written by Sebastian Schmidt, and is released with his permission. 
+This is a modified version of the "POWTester" app written by Sebastian Schmidt [(ISibboI)] (https://github.com/isibboi), and is released with his permission. 
 
 ![Alt text](screenshots/POWTesterScreenshot001.png)
 ![Alt text](screenshots/POWTesterScreenshot002.png)
