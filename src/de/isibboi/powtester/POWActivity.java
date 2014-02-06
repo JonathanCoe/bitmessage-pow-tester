@@ -138,7 +138,7 @@ public class POWActivity extends Activity
 				{	
 					// Run the test and then set to 'running' state
 					resultTextView.setTextColor(Color.BLACK);
-					resultTextView.setText("Running POW test...");
+					resultTextView.setText("Running Proof of Work test...");
 					
 					powTestSuccessful = false; // Reset this value to avoid false positives
 					
@@ -147,7 +147,7 @@ public class POWActivity extends Activity
 					
 					powTestRunning = true;
 					
-					doPOWButton.setText("Cancel POW Test");
+					doPOWButton.setText("Cancel Proof of Work Test");
 				}
 				
 				else
@@ -156,8 +156,8 @@ public class POWActivity extends Activity
 					powTask.cancel(true);
 					
 					resultTextView.setTextColor(Color.BLACK);
-					resultTextView.setText("POW test cancelled");
-					doPOWButton.setText("Run POW Test");
+					resultTextView.setText("Proof of Work test cancelled");
+					doPOWButton.setText("Run Proof of Work Test");
 					
 					powTestRunning = false;
 				}
@@ -204,7 +204,7 @@ public class POWActivity extends Activity
 				resultTextView.setTextColor(Color.RED);
 			}
 			
-			doPOWButton.setText("Run POW Test");
+			doPOWButton.setText("Run Proof of Work Test");
 			powTestRunning = false;
 		}
 	}
