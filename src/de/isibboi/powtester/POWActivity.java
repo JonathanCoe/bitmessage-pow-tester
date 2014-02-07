@@ -240,18 +240,21 @@ public class POWActivity extends Activity
 		long end = System.currentTimeMillis();
 		wl.release();
 
+		DecimalFormat formatter = new DecimalFormat("###,###,###"); // Format with comma separators
+		long hashRate = pow.getHashesCalculated() / ((end - start) / 1000);
+		double hashRateValue = (double) hashRate;
+		
 		StringBuilder ResultString = new StringBuilder();
 		ResultString.append("Cores: " + Runtime.getRuntime().availableProcessors() + "\n");
 		ResultString.append("Time: " + ((end - start) / 1000) + "." + (((end - start) / 1000) / 10) + " seconds\n");
-		ResultString.append("Hash rate: " + (pow.getHashesCalculated() / ((end - start) / 1000)) + " h/s\n");
+		ResultString.append("Hash rate: " + formatter.format(hashRateValue) + " h/s\n");
 		
 		if (pow.getPOWSuccessfulResult() == true)
 		{
 			String resultNonce = String.valueOf(Util.getLong(result));
-			double amount = Double.parseDouble(resultNonce);
-			DecimalFormat formatter = new DecimalFormat("###,###,###"); // Format the nonce result with comma separators
+			double nonceValue = Double.parseDouble(resultNonce);
 			
-			ResultString.append("Result: Found a valid nonce! - " + formatter.format(amount));
+			ResultString.append("Result: Found a valid nonce! - " + formatter.format(nonceValue));
 			powTestSuccessful = true;
 		}
 		else
