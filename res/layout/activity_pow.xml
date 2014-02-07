@@ -64,7 +64,7 @@
 
     <Button
         android:id="@+id/doPOWButton"
-        android:layout_width="300dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/difficultySeekBar"
         android:layout_below="@+id/difficultySeekBar"
