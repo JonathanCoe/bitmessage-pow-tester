@@ -37,6 +37,7 @@ public class POWActivity extends Activity
 	private TextView difficultyTextView;
 	private SeekBar difficultySeekBar;
 	private Button doPOWButton;
+	private TextView resultTitleTextView;
 	private TextView resultTextView;
 	
 	private boolean powTestSuccessful;
@@ -50,6 +51,7 @@ public class POWActivity extends Activity
 		
 		payloadLengthSeekBar = (SeekBar) findViewById(R.id.payloadLengthSeekBar);
 		payloadLengthTextView = (TextView) findViewById(R.id.payloadLengthTextView);
+		resultTitleTextView = (TextView) findViewById(R.id.resultTitleTextView);
 		resultTextView = (TextView) findViewById(R.id.resultTextView);
 		payloadLengthSeekBar.setMax(10000);
 		payloadLengthTextView.setText("Payload length: " + payloadLengthSeekBar.getProgress() + " bytes");	
@@ -77,13 +79,13 @@ public class POWActivity extends Activity
 		maxTimeAllowedSeekBar = (SeekBar) findViewById(R.id.maxTimeAllowedSeekBar);
 		maxTimeAllowedTextView = (TextView) findViewById(R.id.maxTimeAllowedTextView);
 		maxTimeAllowedSeekBar.setMax(600);
-		maxTimeAllowedTextView.setText("Max time allowed: " + payloadLengthSeekBar.getProgress() + " seconds");
+		maxTimeAllowedTextView.setText("Max time allowed: " + (payloadLengthSeekBar.getProgress() + 1) + " seconds");
 		maxTimeAllowedSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() 
 		{
 			@Override
 			public void onProgressChanged(SeekBar bar, int progress, boolean fromUser) 
 			{
-				maxTimeAllowedTextView.setText("Max time allowed: " + maxTimeAllowedSeekBar.getProgress() + " seconds");
+				maxTimeAllowedTextView.setText("Max time allowed: " + (maxTimeAllowedSeekBar.getProgress() + 1) + " seconds");
 			}
 
 			@Override
@@ -137,6 +139,7 @@ public class POWActivity extends Activity
 				if (powTestRunning == false)
 				{	
 					// Run the test and then set to 'running' state
+					resultTitleTextView.setVisibility(View.INVISIBLE);
 					resultTextView.setTextColor(Color.BLACK);
 					resultTextView.setText("Running Proof of Work test...");
 					
@@ -155,6 +158,7 @@ public class POWActivity extends Activity
 					// Cancel and then set to 'ready to run' state
 					powTask.cancel(true);
 					
+					resultTitleTextView.setVisibility(View.INVISIBLE);
 					resultTextView.setTextColor(Color.BLACK);
 					resultTextView.setText("Proof of Work test cancelled");
 					doPOWButton.setText("Run Proof of Work Test");
@@ -193,14 +197,17 @@ public class POWActivity extends Activity
 			
 			String resultString = (String) POWResult;
 			
+			resultTitleTextView.setVisibility(View.VISIBLE);
 			resultTextView.setText(resultString);
 			
 			if (powTestSuccessful == true)
 			{
-				resultTextView.setTextColor(0xFF009900); // Dark green
+				resultTitleTextView.setTextColor(0xFF009900); // Dark green
+				resultTextView.setTextColor(0xFF009900); 
 			}
 			else
 			{
+				resultTitleTextView.setTextColor(Color.RED);
 				resultTextView.setTextColor(Color.RED);
 			}
 			
@@ -229,14 +236,14 @@ public class POWActivity extends Activity
 		
 		wl.acquire();
 		long start = System.currentTimeMillis();
-		byte[] result = pow.execute(maxTimeAllowedSeekBar.getProgress()); // Do the POW calculations
+		byte[] result = pow.execute(maxTimeAllowedSeekBar.getProgress() + 1); // Do the POW calculations
 		long end = System.currentTimeMillis();
 		wl.release();
 
 		StringBuilder ResultString = new StringBuilder();
-		ResultString.append("Test Results:\n");
 		ResultString.append("Cores: " + Runtime.getRuntime().availableProcessors() + "\n");
 		ResultString.append("Time: " + ((end - start) / 1000) + "." + (((end - start) / 1000) / 10) + " seconds\n");
+		ResultString.append("Hash rate: " + (pow.getHashesCalculated() / ((end - start) / 1000)) + " h/s\n");
 		
 		if (pow.getPOWSuccessfulResult() == true)
 		{
@@ -251,7 +258,7 @@ public class POWActivity extends Activity
 		{
 			ResultString.append("Result: Failed to find a valid nonce within the time allowed");
 		}
-
+		
 		return ResultString.toString();
 	}
 }

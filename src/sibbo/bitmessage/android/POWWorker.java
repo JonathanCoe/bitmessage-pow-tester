@@ -54,6 +54,7 @@ public class POWWorker implements Runnable
 	
 	private long startTime;
 	private boolean POWSuccessful;
+	int hashesCalculated = 0;
 
 	/**
 	 * Creates a new POWWorker.
@@ -131,6 +132,11 @@ public class POWWorker implements Runnable
 	{
 		return POWSuccessful;
 	}
+	
+	public int getHashesCalculated()
+	{
+		return hashesCalculated;
+	}
 
 	/**
 	 * Calculates the POW.
@@ -149,7 +155,7 @@ public class POWWorker implements Runnable
 
 		float topLoad = targetLoad * 1.1f;
 		float bottomLoad = targetLoad * 0.9f;
-
+		
 		while (!stop) 
 		{
 			long ls = System.nanoTime();
@@ -163,6 +169,8 @@ public class POWWorker implements Runnable
 				sha512.reset();
 				hash = sha512.digest(hash);
 				
+				hashesCalculated = hashesCalculated + 2;
+								
 				result = Util.getLong(hash);
 
 				if (result <= target && result >= 0) 

@@ -34,6 +34,8 @@ public class POWCalculator implements POWListener
 	private static int averageProofOfWorkNonceTrialsPerByte = 320;
 	
 	private static int payloadLengthExtraBytes = 14000;
+	
+	int hashesCalculated = 0;
 
 	/**
 	 * Creates a new POWCalculator.
@@ -93,6 +95,8 @@ public class POWCalculator implements POWListener
 		for (POWWorker w : workers) 
 		{
 			w.stop();
+			
+			hashesCalculated = hashesCalculated + w.getHashesCalculated();
 		}
 		
 		if (finishedWorker.getSuccessResult() == true)
@@ -143,5 +147,10 @@ public class POWCalculator implements POWListener
 	{
 		averageProofOfWorkNonceTrialsPerByte = 320 * difficultyFactor;
 		payloadLengthExtraBytes = 14000 * difficultyFactor;
+	}
+	
+	public int getHashesCalculated()
+	{
+		return hashesCalculated;
 	}
 }
