@@ -63,12 +63,12 @@
         android:layout_marginTop="10dp" />
 
     <Button
-        android:id="@+id/doPOWButton"
+        android:id="@+id/runTestButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/difficultySeekBar"
         android:layout_below="@+id/difficultySeekBar"
-        android:text="@string/doPOWButton"
+        android:text="@string/runTestButton"
         android:layout_marginTop="20dp" />
 
     <TextView
@@ -78,7 +78,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/doPOWButton"
+        android:layout_below="@+id/runTestButton"
         android:text="@string/resultsTitleTextView"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/doPOWButton"
+        android:layout_below="@+id/runTestButton"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginTop="30dp" />
 

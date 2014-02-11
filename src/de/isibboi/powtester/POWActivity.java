@@ -2,7 +2,6 @@ package de.isibboi.powtester;
 
 import java.text.DecimalFormat;
 import java.util.Random;
-
 import sibbo.bitmessage.android.POWCalculator;
 import sibbo.bitmessage.android.Util;
 import android.annotation.SuppressLint;
@@ -36,7 +35,7 @@ public class POWActivity extends Activity
 	private SeekBar payloadLengthSeekBar;
 	private TextView difficultyTextView;
 	private SeekBar difficultySeekBar;
-	private Button doPOWButton;
+	private Button runTestButton;
 	private TextView resultTitleTextView;
 	private TextView resultTextView;
 	
@@ -85,6 +84,7 @@ public class POWActivity extends Activity
 			@Override
 			public void onProgressChanged(SeekBar bar, int progress, boolean fromUser) 
 			{
+				// Allowing tests to run with a max time of 0 occasionally causes crashes, so we'll set a minimum time of 1 second
 				maxTimeAllowedTextView.setText("Max time allowed: " + (maxTimeAllowedSeekBar.getProgress() + 1) + " seconds");
 			}
 
@@ -128,10 +128,10 @@ public class POWActivity extends Activity
 			}
 		});
 
-		doPOWButton = (Button) findViewById(R.id.doPOWButton);
-		doPOWButton.setOnClickListener(new OnClickListener() 
+		runTestButton = (Button) findViewById(R.id.runTestButton);
+		runTestButton.setOnClickListener(new OnClickListener() 
 		{
-			DoPOWTask powTask = null;
+			TestTask testTask = null;
 			
 			@Override
 			public void onClick(View view) 
@@ -145,23 +145,23 @@ public class POWActivity extends Activity
 					
 					powTestSuccessful = false; // Reset this value to avoid false positives
 					
-					powTask = new DoPOWTask();
-					powTask.execute();
+					testTask = new TestTask();
+					testTask.execute();
 					
 					powTestRunning = true;
 					
-					doPOWButton.setText("Cancel Proof of Work Test");
+					runTestButton.setText("Cancel Proof of Work Test");
 				}
 				
 				else
 				{
 					// Cancel and then set to 'ready to run' state
-					powTask.cancel(true);
+					testTask.cancel(true);
 					
 					resultTitleTextView.setVisibility(View.INVISIBLE);
 					resultTextView.setTextColor(Color.BLACK);
 					resultTextView.setText("Proof of Work test cancelled");
-					doPOWButton.setText("Run Proof of Work Test");
+					runTestButton.setText("Run Proof of Work Test");
 					
 					powTestRunning = false;
 				}
@@ -177,18 +177,16 @@ public class POWActivity extends Activity
 		return true;
 	}
 	
-	private class DoPOWTask extends AsyncTask<Void, Void, Object>
+	private class TestTask extends AsyncTask<Void, Void, Object>
 	{		
 		@Override
 		protected Object doInBackground(Void... params) 
 		{							
 			Log.i(TAG, "DoPOWTask.doInBackground() called");
 			
-			String result = doPOW();
+			String result = runTest();
 			
-			publishProgress();
-			
-			return result;	
+			return result;
 		}
 		
 		protected void onPostExecute(Object POWResult)
@@ -211,13 +209,13 @@ public class POWActivity extends Activity
 				resultTextView.setTextColor(Color.RED);
 			}
 			
-			doPOWButton.setText("Run Proof of Work Test");
+			runTestButton.setText("Run Proof of Work Test");
 			powTestRunning = false;
 		}
 	}
 	
 	@SuppressLint("Wakelock")
-	private String doPOW()
+	private String runTest()
 	{
 		Random r = new Random();
 		byte[] hash = new byte[64];
