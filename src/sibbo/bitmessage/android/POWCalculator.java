@@ -29,13 +29,17 @@ public class POWCalculator implements POWListener
 	/** The worker that found a valid nonce. */
 	private POWWorker finishedWorker;
 	
+	/** Indicates whether or not a valid nonce has been found. */
 	private boolean POWSuccessful;
 	
+	/** A value used in the Bitmessage protocol for determining the difficulty required for proof of work calculations. */
 	private static int averageProofOfWorkNonceTrialsPerByte = 320;
 	
+	/** A value used in the Bitmessage protocol for determining the difficulty required for proof of work calculations. */
 	private static int payloadLengthExtraBytes = 14000;
 	
-	int hashesCalculated = 0;
+	/** The number of hashes calculated so far. */
+	private int hashesCalculated = 0;
 
 	/**
 	 * Creates a new POWCalculator.

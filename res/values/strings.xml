@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Bitmessage POW Tester</string>
+    <string name="app_name">POW Tester</string>
     <string name="action_settings">Settings</string>
     <string name="runTestButton">Run Proof of Work Test</string>
     <string name="resultsTitleTextView">Test Results:</string>

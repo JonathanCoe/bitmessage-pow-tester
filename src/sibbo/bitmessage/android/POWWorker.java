@@ -48,13 +48,20 @@ public class POWWorker implements Runnable
 	/** The increment that should be used for finding the next nonce. */
 	private long increment;
 	
+	/** The maximum time allowed for the worker to do its calculations. */
 	private long maxTime; 
+	
+	/** The time at which the worker starts working. */
+	private long startTime;
+	
+	/** Indicates whether or not a valid nonce has been found. */
+	private boolean POWSuccessful;
+	
+	/** The number of hashes calculated so far. */
+	private int hashesCalculated = 0;
 	
 	private MessageDigest sha512;
 	
-	private long startTime;
-	private boolean POWSuccessful;
-	int hashesCalculated = 0;
 
 	/**
 	 * Creates a new POWWorker.

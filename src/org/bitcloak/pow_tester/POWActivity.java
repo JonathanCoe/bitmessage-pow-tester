@@ -1,4 +1,4 @@
-package de.isibboi.powtester;
+package org.bitcloak.pow_tester;
 
 import java.text.DecimalFormat;
 import java.util.Random;
